@@ -1,0 +1,33 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Ojuju-Bold.ttf",
+      "sha1": "058343efb318b0315adb4fd86a9a95216a5047ac"
+    },
+    {
+      "path": "src/assets/fonts/Ojuju-SemiBold.ttf",
+      "sha1": "5861160ff28bfcec4b23167d9209fb82cb757dc2"
+    },
+    {
+      "path": "src/assets/fonts/SourceSans3-Bold.ttf",
+      "sha1": "cc46ab0e6ad07ff446bd94d8843b0fc971b9d9f1"
+    },
+    {
+      "path": "src/assets/fonts/SourceSans3-Light.ttf",
+      "sha1": "4e6f99295a5c73dba5676197b15e563912b27c53"
+    },
+    {
+      "path": "src/assets/fonts/SourceSans3-Medium.ttf",
+      "sha1": "83eb79459a8e39765bbcf9716712b6c6d15dcbbe"
+    },
+    {
+      "path": "src/assets/fonts/SourceSans3-Regular.ttf",
+      "sha1": "9251a4dbc1de55e1120a094dc2c721b4d75518c2"
+    },
+    {
+      "path": "src/assets/fonts/SourceSans3-SemiBold.ttf",
+      "sha1": "7a5ca03083f0c8d402d3bd07e2925d7668fc7510"
+    }
+  ]
+}
