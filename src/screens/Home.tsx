@@ -1,9 +1,26 @@
-import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import React, {ReactElement} from 'react';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {useQuery} from '@tanstack/react-query';
+
 import Layout from '../layout.tsx';
 import {StudentSvg} from '../assets/icons';
+import {fetchCategories} from '../services/CategoriesServices.ts';
+import {topicIcons} from '../constants/Topics.js';
+import {useNavigation} from '@react-navigation/native';
+import {quizScreenProp} from '../types/navigation';
 
 const Home = (): React.JSX.Element => {
+  const navigation = useNavigation<quizScreenProp>();
+
+  const {data, isFetching, refetch} = useQuery<Category[]>({
+    queryKey: ['quizz_categories'],
+    queryFn: fetchCategories,
+  });
+
+  const handleQuiz = () => {
+    navigation.navigate('quiz');
+  };
+
   return (
     <Layout classname={'bg-primary pt-3'}>
       <Text className={'font-ojuju-bold text-center text-light text-2xl'}>
@@ -32,9 +49,71 @@ const Home = (): React.JSX.Element => {
         </View>
       </View>
 
-      <View className={'bg-bg_light rounded-tl-[35px] p-8 mt-5 flex-1'} />
+      <View className={'bg-bg_light rounded-tl-[35px] p-5 mt-5 flex-1'}>
+        {/* header */}
+        <Header />
+
+        <FlatList
+          onRefresh={refetch}
+          refreshing={isFetching}
+          data={data}
+          renderItem={({item}) =>
+            renderTopicItem({item, handlePress: handleQuiz})
+          }
+          numColumns={2}
+        />
+      </View>
     </Layout>
   );
 };
 
+const renderTopicItem = ({
+  item,
+  handlePress,
+}: {
+  item: Category;
+  handlePress: () => void;
+}): ReactElement => (
+  <TopicItem
+    key={item?.id}
+    // @ts-ignore
+    icon={topicIcons[item.name]}
+    title={item.name}
+    handlePress={handlePress}
+  />
+);
+
 export default Home;
+
+const Header = () => (
+  <View className={'flex-row justify-between items-center mb-3'}>
+    <Text className={'text-primary text-base font-sans-bold'}>
+      Explore Quizzes
+    </Text>
+
+    <TouchableOpacity>
+      <Text className={'font-sans-bold text-xs text-primary uppercase'}>
+        View All
+      </Text>
+    </TouchableOpacity>
+  </View>
+);
+
+const TopicItem = ({
+  icon,
+  title,
+  handlePress,
+}: {
+  icon: any;
+  title: string;
+  handlePress?: () => void;
+}): ReactElement => (
+  <TouchableOpacity
+    className={
+      'm-2 bg-light p-5 rounded-xl flex flex-col items-center justify-center flex-1'
+    }
+    onPress={handlePress}>
+    {icon}
+    <Text className={'mt-2 text-primary font-sans-medium'}> {title}</Text>
+  </TouchableOpacity>
+);
